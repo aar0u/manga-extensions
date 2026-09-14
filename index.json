@@ -11,12 +11,12 @@
         "name": "\u62f7\u8d1d\u6f2b\u753b Copy3000",
         "packageName": "eu.kanade.tachiyomi.extension.zh.copy3000",
         "resources": {
-          "apkUrl": "https://github.com/aar0u/manga-extensions/releases/download/7d3d21b/tachiyomi-zh.copy3000-v1.4.3.apk",
+          "apkUrl": "https://github.com/aar0u/manga-extensions/releases/download/ae1ce58/tachiyomi-zh.copy3000-v1.4.4.apk",
           "iconUrl": "https://cdn.jsdelivr.net/gh/aar0u/manga-extensions@main/src/zh/copy3000/res/mipmap-xhdpi/ic_launcher.png"
         },
         "extensionLib": "1.4",
-        "versionCode": "104003",
-        "versionName": "1.4.3",
+        "versionCode": "104004",
+        "versionName": "1.4.4",
         "contentWarning": "CONTENT_WARNING_MIXED",
         "sources": [
           {
@@ -32,10 +32,30 @@
         ]
       },
       {
+        "name": "Ikmmh",
+        "packageName": "eu.kanade.tachiyomi.extension.zh.ikmmh",
+        "resources": {
+          "apkUrl": "https://github.com/aar0u/manga-extensions/releases/download/ae1ce58/tachiyomi-zh.ikmmh-v1.6.1.apk",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/aar0u/manga-extensions@main/src/zh/ikmmh/res/mipmap-xhdpi/ic_launcher.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "106001",
+        "versionName": "1.6.1",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "1793919771803569726",
+            "name": "\u7231\u770b\u6f2b",
+            "language": "zh",
+            "homeUrl": "https://ymcdnyfqdapp.ikmmh.com"
+          }
+        ]
+      },
+      {
         "name": "Reman",
         "packageName": "eu.kanade.tachiyomi.extension.zh.reman",
         "resources": {
-          "apkUrl": "https://github.com/aar0u/manga-extensions/releases/download/7d3d21b/tachiyomi-zh.reman-v1.6.1.apk",
+          "apkUrl": "https://github.com/aar0u/manga-extensions/releases/download/ae1ce58/tachiyomi-zh.reman-v1.6.1.apk",
           "iconUrl": "https://cdn.jsdelivr.net/gh/aar0u/manga-extensions@main/src/zh/reman/res/mipmap-xhdpi/ic_launcher.png"
         },
         "extensionLib": "1.6",
