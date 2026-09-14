@@ -1,0 +1,38 @@
+# preBuild is Python source executed before the extension's Gradle tasks.
+extensions:
+  - module: ":src:zh:copy3000"
+  - module: ":src:zh:reman"
+  - module: ":src:zh:ikmmh"
+    preBuild: |
+      from pathlib import Path
+
+      path = Path("src/zh/ikmmh/src/eu/kanade/tachiyomi/extension/zh/ikmmh/Ikmmh.kt")
+      text = path.read_text(encoding="utf-8")
+      old = '''        .apply {
+                  // headersBuilder 已预置默认 UA（Mihon 设置 → Default user agent）
+                  val defaultUserAgent = build()["User-Agent"]
+                  if (defaultUserAgent == null || !defaultUserAgent.contains("Mobile")) {
+                      set("User-Agent", MOBILE_UA)
+                  }
+              }'''
+      new = '''        .set("User-Agent", MOBILE_UA)'''
+      if old not in text:
+          raise SystemExit("Ikmmh User-Agent block changed; update .github/extensions.yml")
+      path.write_text(text.replace(old, new), encoding="utf-8")
+
+      build_path = Path("src/zh/ikmmh/build.gradle.kts")
+      build = build_path.read_text(encoding="utf-8")
+      if "isMinifyEnabled = false" not in build:
+          build_path.write_text(
+              build.rstrip() + """
+
+      android {
+          buildTypes {
+              release {
+                  isMinifyEnabled = false
+              }
+          }
+      }
+      """,
+              encoding="utf-8",
+          )

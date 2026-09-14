@@ -36,20 +36,21 @@ jobs:
 
       - name: Prepare signing key
         env:
-          SIGNING_KEY: ${{ vars.SIGNING_KEY }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: printf '%s' "$SIGNING_KEY" | base64 -d > main/signingkey.jks
 
       - name: Build extensions
         env:
           ALIAS: ${{ vars.ALIAS }}
-          KEY_STORE_PASSWORD: ${{ vars.KEY_STORE_PASSWORD }}
-          KEY_PASSWORD: ${{ vars.KEY_PASSWORD }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         working-directory: main
         run: |
-          TASKS=()
-          for module in $(< .github/extensions.txt); do
-            TASKS+=("${module}:generateSourceInfo" "${module}:packageRelease")
-          done
+          python -m pip install --disable-pip-version-check PyYAML
+          TASKS_FILE=$(mktemp)
+          python .github/scripts/prepare-extension-tasks.py .github/extensions.yml > "$TASKS_FILE"
+          mapfile -t TASKS < "$TASKS_FILE"
+          rm "$TASKS_FILE"
           ./gradlew "${TASKS[@]}"
 
       - name: Checkout repository branch

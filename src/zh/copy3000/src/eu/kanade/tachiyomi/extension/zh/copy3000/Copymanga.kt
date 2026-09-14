@@ -44,6 +44,8 @@ abstract class Copymanga :
         .build()
 
     override fun headersBuilder(): Headers.Builder = super.headersBuilder()
+        // CopyManga limits the chapter API to five pages for mobile User-Agents.
+        .set("User-Agent", DESKTOP_USER_AGENT)
         .set("Accept", "application/json")
         .set("Origin", "https://copy20.com")
         .set("Version", "2025.05.09")
@@ -202,6 +204,7 @@ abstract class Copymanga :
     companion object {
         private const val PAGE_SIZE = 21
         private const val CHAPTER_PAGE_SIZE = 500
+        private const val DESKTOP_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
         private const val HIDE_CONTINUOUS_CHAPTER_PREF = "hideDefaultContinuousChapter"
     }
 }
