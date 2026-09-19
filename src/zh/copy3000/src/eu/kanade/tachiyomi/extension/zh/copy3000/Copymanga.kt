@@ -17,7 +17,9 @@ import keiyoushi.utils.getArray
 import keiyoushi.utils.getObject
 import keiyoushi.utils.getPreferences
 import keiyoushi.utils.getString
+import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Headers
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
@@ -176,7 +178,12 @@ abstract class Copymanga :
     override fun pageListParse(response: Response): List<Page> {
         val chapter = response.body.string().parseResultsObject().getObject("chapter")
         val contents = chapter.getArray("contents")
-        return contents.mapIndexed { index, content -> Page(index, imageUrl = content.jsonObject.getString("url")) }
+        val words = chapter.getArray("words")
+        // Page order comes from "words", not array position in "contents" - the API can
+        // return them out of order (e.g. for chapters spliced from multiple sources).
+        return contents.zip(words)
+            .sortedBy { (_, word) -> word.jsonPrimitive.int }
+            .mapIndexed { index, (content, _) -> Page(index, imageUrl = content.jsonObject.getString("url")) }
     }
 
     override fun imageUrlParse(response: Response): String = throw UnsupportedOperationException()

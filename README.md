@@ -2,7 +2,7 @@
 
 面向 Mihon/Tachiyomi/Suwayomi 的扩展源,fork 自 [Keiyoushi Extensions](https://github.com/keiyoushi/extensions-source)。
 
-本仓库只构建和发布 [`.github/extensions.txt`](.github/extensions.txt) 里列出的源,目前是:
+本仓库只构建和发布 [`.github/extensions`](.github/extensions.yml) 里列出的源,目前是:
 
 * 拷贝漫画 Copy3000 (`zh`)
 * 热漫 (`zh`)
